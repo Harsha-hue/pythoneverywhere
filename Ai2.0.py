@@ -1,5 +1,6 @@
 import os
 import telegram
+from telegram.ext import *
 import openai
 
 # Set up OpenAI API key
@@ -30,7 +31,7 @@ def handle_message(update, context):
     bot.send_message(chat_id=chat_id, text=reply)
 
 # Set up handler for incoming messages
-updater = telegram.ext.Updater(token="<YOUR_TELEGRAM_BOT_TOKEN>", use_context=True)
+updater = telegram.ext.Updater(token="5829477521:AAH6_LfvVCpUDQBHBpZ6uzOwiIfQXYmOLvQ", use_context=True)
 dispatcher = updater.dispatcher
 dispatcher.add_handler(telegram.ext.MessageHandler(telegram.ext.Filters.text, handle_message))
 
