@@ -1,6 +1,6 @@
 import telegram
-from telegram import Bot, Update
-from telegram.ext import CommandHandler, Dispatcher, Updater, MessageHandler, Filters
+from telegram import Bot, _update
+from telegram.ext import _commandHandler, _updater, _messageHandler, filters
 import openai
 import os
 #CommandHandler, Dispatcher, MessageHandler, Filters
