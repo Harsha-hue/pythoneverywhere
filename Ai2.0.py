@@ -1,7 +1,7 @@
 import os
 import telegram
 import openai
-from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
+from telegram.ext import Updater, CommandHandler, MessageHandler, filters
 
 # Initialize Telegram bot and OpenAI API
 telegram_bot_token = os.environ.get('5829477521:AAH6_LfvVCpUDQBHBpZ6uzOwiIfQXYmOLvQ')
