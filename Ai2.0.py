@@ -1,4 +1,4 @@
-himport telegram
+import telegram
 import logging
 import openai_secret_manager
 import openai
