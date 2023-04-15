@@ -1,39 +1,28 @@
 import os
 import telegram
-from telegram.ext import *
 import openai
+from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
 
-# Set up OpenAI API key
-openai.api_key = "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"
+# Initialize Telegram bot and OpenAI API
+telegram_bot_token = os.environ.get('5829477521:AAH6_LfvVCpUDQBHBpZ6uzOwiIfQXYmOLvQ')
+openai_api_key = os.environ.get('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')
+bot = telegram.Bot(token=telegram_bot_token)
+openai.api_key = openai_api_key
 
-# Set up Telegram bot token
-bot = telegram.Bot(token="5829477521:AAH6_LfvVCpUDQBHBpZ6uzOwiIfQXYmOLvQ")
+# Define message handlers
+def start(update, context):
+    context.bot.send_message(chat_id=update.effective_chat.id, text="Hello, I'm a bot Created by @Anonymous728. Send me a message and I'll respond with something smart!")
 
-# Define function to handle incoming messages
-def handle_message(update, context):
-    # Get message text and chat ID
+def reply_to_message(update, context):
     message = update.message.text
-    chat_id = update.message.chat_id
-    
-    # Call OpenAI GPT-3 API to generate response
-    response = openai.Completion.create(
-        engine="text-davinci-002",
-        prompt=message,
-        temperature=0.5,
-        max_tokens=50,
-        n=1,
-        stop=None,
-        timeout=10,
-    )
-    reply = response.choices[0].text.strip()
-    
-    # Send response back to Telegram chat
-    bot.send_message(chat_id=chat_id, text=reply)
+    response = openai.Completion.create(engine="davinci", prompt=message, max_tokens=50).choices[0].text
+    context.bot.send_message(chat_id=update.effective_chat.id, text=response)
 
-# Set up handler for incoming messages
-updater = telegram.ext.Updater(token="5829477521:AAH6_LfvVCpUDQBHBpZ6uzOwiIfQXYmOLvQ", use_context=True)
+# Create the updater and add handlers
+updater = Updater(token=telegram_bot_token, use_context=True)
 dispatcher = updater.dispatcher
-dispatcher.add_handler(telegram.ext.MessageHandler(telegram.ext.Filters.text, handle_message))
+dispatcher.add_handler(CommandHandler('start', start))
+dispatcher.add_handler(MessageHandler(Filters.text & ~Filters.command, reply_to_message))
 
 # Start the bot
 updater.start_polling()
