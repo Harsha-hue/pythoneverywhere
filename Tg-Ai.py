@@ -1,4 +1,5 @@
 import telegram
+from telegram import Bot, Update
 from telegram.ext import CommandHandler, Dispatcher, Updater, MessageHandler, Filters
 import openai
 import os
